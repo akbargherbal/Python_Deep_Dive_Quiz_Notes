@@ -1,0 +1,114 @@
+Deep Dive 1: Python
+	5. Function Parameters
+
+Full of useful tips & tricks
+------------------------------------
+
+What is the result of the following python code:
+list_01 = [1,2,3,4,5,6]
+a,b = a, *b
+
+=================
+
+What is the result of the following python code:
+list_01 = [1,2,3]
+list_02 = [4,5,6]
+
+l = [*list_01, *list_02]
+
+=================
+What is the result of the following code:
+x = "python"
+
+a, *b, c = x
+
+=================
+
+What is the result of the following code:
+dict_01 = {"a": 1, "b": 2, "c": 3, "d": 4}
+
+for i in dict_01:
+	print(i)
+=================
+
+What is the result of the following code:
+dict_01 = {"a": 1, "b": 2, "c": 3, "d": 4}
+
+for i in dict_01.items():
+	print(i)
+=================
+Unpacking a dictionary keys:
+
+dict_01 = {"a": 1, "b": 2, "c": 3, "d": 4}
+dict_02 = {"e": 10, "d": 12, "f": 23, "g": 4}
+dict_03 = {"h": 0, "i": 1, "f": 2, "k": 40}
+
+You can unpack a dictionaries keys into a list; or a set.
+
+This way:
+
+list_01 = [*dict_01, *dict_02, *dict_03]
+
+	Notice duplicate keys.
+	
+set_01 = {*dict_01, *dict_02, *dict_03}
+	Notice duplicate keys are gone!
+
+=================
+
+Merging multiple dictionaries:
+
+dict_01 = {"a": 1, "b": 2, "c": 3, "d": 4}
+dict_02 = {"e": 10, "d": 12, "f": 23, "g": 4}
+dict_03 = {"h": 0, "i": 1, "f": 2, "k": 40}
+
+dict_04 = {**dict_01, **dict_02, **dict_03}
+
+Notice latest key-value pairs are kept only!
+
+
+You can also unpack dictionary on the go; consider:
+
+dict_05 = {"aa": 11, "bb": 12, **dict_04, "cc":13}
+Notice when duplicate keys exist in unpacking; only the latest pairs of key-value are kept.
+=================
+
+What is the result of the following python code:
+a, *b, (c, *d) = [1, 2, 3, "python"]
+
+a = 1
+b = [2, 3]
+c = "p"
+d = ["y", "t", "h", "o", "n"]
+
+=================
+What is the result of the following python code:
+a = [1,3,4,6]
+b = "python"
+
+l = [*a, *b]
+
+=================
+You'd better review videos on unpacking and extended unpacking ... lots of cool tricks!
+=================
+The start (*) unpacking is helpful in some situations, consider this:
+
+s1 = {1, 2, 3, 5, 7}
+s2 = {12, 222, 3, 25, 87, 77}
+s3 = {1, 22, 30, 251, 7, 23}
+s4 = {10, 82, 30, 251, 7, 5, 9}
+
+
+Using traditional set union might be cumbersome; instead use the following
+
+s5 = {*s1, *s2, *s3, *s4}
+
+you can unpack to a list too.
+l5 = [*s1, *s2, *s3, *s4]
+
+That's equivalent to:
+s5 = s1.union(s2).union(s3).union(s4)
+s5 = s1.union(s2, s3, s4, s5)
+=================
+
+
