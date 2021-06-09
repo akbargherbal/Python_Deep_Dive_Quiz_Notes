@@ -111,4 +111,125 @@ s5 = s1.union(s2).union(s3).union(s4)
 s5 = s1.union(s2, s3, s4, s5)
 =================
 
+What is the result of the following python code:
+a, b, (c, d, *e) = [1, 2, "python"]
 
+=================
+What is the result of the following python code:
+a, b, (c, *d, e) = [1, 2, "python"]
+=================
+
+args & *args
+
+def func_01(a, b, *c):
+	code
+
+func_01(10, 20, "x", "y")
+
+Notice that:
+	a = 10
+	b = 20
+	c = ("x", "y")		<-------------- tuple; not a list like in normal star (*) unpacking!
+
+=================
+
+def func_01(a, b, *args):
+	code
+*args is the naming convention.
+
+
+=================
+ERROR: THIS WON'T WORK
+xxxxxxxxxxxxxxxxxxxxxxxx
+def func_02(a, b, args*, d):
+	code
+xxxxxxxxxxxxxxxxxxxxxxxx
+It works in normal unpacking; but not in functions arguments. Use keywords instead to rectify!
+=================
+Q:
+Is the following code valid?
+
+	def func_03(a, b, *c):
+		print(a)
+		print(b)
+		print(c)
+
+	func_03(10, 30)
+	
+A:
+	Yes; a will be 10, b will be 30, and c will be an empty tuple.
+	See 5. Function Parameters - 10. args.
+	
+=================
+Q:
+What is the name of (x)?
+Why is x is used in this case?
+
+def avg(*args):
+	count = len(args)
+	total = sum(args)
+	return count and total/count	# x
+
+A:
+	x is in this case is used for short-circuiting.
+	x is used to avoid division by zero.
+	It seems you skipped a very important lesson in Numeric Types chapter (Booleans & Truthiness!!)
+	
+=================
+
+
+*************************************
+Backtracking to Booleans (Numeric Types Chapter) - Very Important!!!
+
+=================
+
+A boolean is a subclass of an integer.
+	issubclass(bool, int)
+	True
+	
+=================
+Q:
+What is the output of the following code?
+	True == 1
+A:
+	True
+=================
+
+Q:
+What is the output of the following code?
+	0 == False
+A:
+	True
+	
+=================
+Q:
+What is the output of the following code?
+	int(True)
+A:
+	1
+
+=================
+Q:
+What is the output of the following code?
+	int(False)
+A:
+	0
+	
+=================
+
+Becareful; True and 1 are NOT the same objects.
+They have different memory addresses!
+
+Becareful; False and 0 are NOT the same objects.
+They have different memory addresses!
+
+id(0) != id(False)
+True
+
+id(1) != id(True)
+True
+
+=================
+
+
+*************************************
