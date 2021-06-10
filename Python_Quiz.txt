@@ -178,7 +178,8 @@ A:
 =================
 
 
-*************************************
+****************	Booleans Section	****************
+
 Backtracking to Booleans (Numeric Types Chapter) - Very Important!!!
 
 =================
@@ -230,6 +231,159 @@ id(1) != id(True)
 True
 
 =================
+Q:
+	What is the output of the following code?
+	True + 1
+A:
+	2
+
+=================
+
+Q:
+	What is the output of the following code?
+	(True + True) * 4
+A:
+	8
+=================
+
+Q:
+	What is the output of the following code?
+	True < False
+A:
+	False
+	
+=================
+Q:
+	What is the output of the following code?
+	(1 == 2) == 0
+A:
+	True
+	False == False == True
+	
+
+=================
+Q:
+	Which is correct?
+		a) issubclass(int, bool)
+		b) issubclass(bool, int)
+A:
+	b - boolean is subclass of the integer type.
+=================
+
+id(3 < 4) == id(True)
+(3 < 4) is True
+
+=================
+
+Q:
+	What is the output of the following code?
+	-True
+A:
+	-1
+	
+=================
+Every object in python has a True truth value, except:
+	1)	None
+	2)	False
+	3)	0
+	4)	Empty sequences (e.g. tuple, list, string)
+	5)	Empty mapping types (e.g. dictionary, set, etc)
+	6)	Custom classes that implement __bool__ or __len__ 
+		methods that returns 0 or False.
 
 
-*************************************
+=================
+Operator Precedence:
+	()
+	<	>	<=	>=	==	!=	in	is
+	not
+	and
+	or
+	
+	Example:
+		True or True and False
+		True or (True and False)
+		True or False == True
+		
+	Example:
+		a < b or a > c and not x or y
+		(a < b) or (a > c) and not x or y
+		(a < b) or (a > c) and (not x) or y
+		((a < b) or ((a > c)) and (not x)) or y
+		
+=================
+
+Short-Circuiting:
+	True or Y			Always return True
+	False an Y			Always return False
+	
+=================
+
+Short-Circuiting is useful here to avoid Zero Division Error!
+a = 10
+b = 0
+
+if b and a/b > 2:
+	print("a is at least twice b")
+
+Since b is False the IF statement won't be executed.
+The same goes for b == None.
+
+=================
+Example of using short-circuiting:
+
+import string
+name = "" # the user didn't provide a valid name in this case it's an empty string.
+
+if name and name[0] in string.digits:
+	print("Name cannot start with a digit.")
+
+
+=================
+Short-Circuiting revisited:
+	x and y
+	If x is truthy, evaluates y and returns it.
+	If x is falsy, returns x.
+	
+	x or y
+	If x is truthy, returns x; otherwise evaluates y and returns it.
+	
+	Application of OR:
+	1)	Avoiding division by zero.		# This can be done using AND in a different manner.
+	2)	Assigning default values.
+	
+	Example:
+		1 or 1/0
+		# In this example the division by zero won't be executed; because of short-circuiting.
+		
+	Example:
+		s1 = None
+		s2 = ""
+		s3 = "abc"
+		
+		s1 = s1 or "n/a"
+		s2 = s2 or "n/a"
+		s3 = s3 or "n/a"
+		
+		print(s1, s2, s3)
+		
+		Output:
+			("n/a", "n/a", "abc")
+			# In this example the if s is falsy; we return "n/a"; otherwise we return s.
+			
+			
+	In OR we look for true value; the first the better.
+	In AND we look for false value; the latter the better.
+	
+	
+	Example:
+		You want to return the first character of a string s, or an empty string if
+		the string is None or empty.
+		
+			if s:
+				return s[0]
+			else:
+				return ""
+ 
+=================
+****************	Booleans Section	****************
