@@ -491,7 +491,7 @@ A:
 =================
 
  Q:
-	Why is it unwise  to use mutable types (like list, dictionary etc) as a default function parameter, and used None instead?
+	Why is it unwise to use mutable types (like list, dictionary etc) as a default function parameter, and used None instead?
 	
 A:
 	Because the function definition runs once, and then that mutable parameter is modified every time we call the function; even for different variables.
