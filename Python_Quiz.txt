@@ -387,3 +387,134 @@ Short-Circuiting revisited:
  
 =================
 ****************	Booleans Section	****************
+
+=================
+Q:
+	Why is the following code will result in an exception?
+	
+	def func01(a, b, *args, d):
+		print(a, b, args, d)
+	
+A:
+	Because the function after exhausting the args (arguments) in the function signature, it will have to look for a keyword argument (d); and it will have nothing ... it was catched by the *args. 
+	Thus after *args, keywords will have to be named.
+
+=================
+Q:
+	The following function is wrong, how could you correct it?
+	
+	def func01(a, b, *args, d):
+		print(a, b, args, d)
+
+A:
+	def func01(a, b, *args, d=3):
+		print(a, b, args, d)
+=================
+
+Q:
+	What are the differences between *args and **kwargs?
+
+A:	
+	1)	*args is used to scope up variable amount of remaining positional arguments.
+	2) 	args are stored in a tuple
+	3) 	*kwargs is used to scope up variable amount of remaining keyword arguments.
+	4)	kwargs are stored in a dictionary.
+	
+=================
+
+Q:
+	Explain the following function signature:
+		def func(*, d, **kwargs):
+			# code
+A:
+	*			denotes:	we don't have any positional arguments.
+	d			denotes:	d is a mandatory keyword argument.
+	**kwargs	denotes:	kwargs will scope up any remaining keyword arguments.
+
+=================
+
+Q:
+	What is the output of the following function?
+		def func(*, d, **kwargs):
+			print(f"d = {d}")
+			print(f"kwargs = {kwargs}")
+		
+		func(d=1, a=2, b=3)
+A:
+	d = 1
+	kwargs = {'a': 2, 'b': 3}
+	
+=================
+
+Combining *args with *kwargs:
+	1)	def func(a, b=1)
+			# a is a mandatory argument; b defaults to 10 if not modified.
+	2)	def func(a, b, *args)
+			# a and b are a mandatory arguments; args scope up any additional arguments.
+	3)	def func(a, b, *args, kw1, kw2=100)
+			# a and b are a mandatory arguments; args scope up any additional arguments, kw1 is a mandatory argument, kw2 defaults to 100 if not modified.
+	4)	def func(a, b, *, kw1, kw2=100)
+			# a is a mandatory argument, b defaults to 10 if not modified; * (the star) indicates that we can't specify any additional arguments, kw1 is a mandatory argument, kw2 defaults to 100 if not modified.
+	5)	def func(a, b, *args, kw1, kw2=100, **kwargs)
+			# a and be are mandatory arguments, *args scope up any additional arguments, kw1 is a mandatory keyword argument, kw2 defaults to 100 if not modified, **kwargs scope up any additional keywords arguments.
+	6)	def func(a, b=10, *, kw1, kw2=100, **kwargs)
+			# a is a mandatory argument, b defaults to 10 if not modified, * (the star) indicates that we can't specify any additional arguments, kw1 is a mandatory keyword argument, kw2 defaults to 100 if not modified, **kwargs scope up any additional keywords arguments.
+	7)	def func(*args)
+			# args scope up any specified arguments; it can be zero arguments.
+	8)	def func(**kwargs)
+			# kwargs scope up any specified keywords arguments, it can be zero keyword arguments.
+	9)	def (*args, **kwargs)
+			# arbitrary number of arguments and keywords arguments; very common syntax.
+
+=================
+
+Q:
+	What's wrong with the following code?
+		def log(msg, *, dt=datetime.utcnow()):
+			print(f'{dt}:{msg}')
+A:
+	dt=datetime.utcnow() in the function signature will be evaluated once; and that's it.
+	That will result in it being one value; the value it was evaluated the first time.
+
+=================
+Q:
+	Correct the following code so that dt reflect the current time.
+		def log(msg, *, dt=datetime.utcnow()):
+			print(f'{dt}:{msg}')
+A:
+	def log(msg, *, dt=None):
+		dt = dt or datetime.utcnow()
+		print(f'{dt}:{msg}')
+		
+		# Short-Circuiting is being used here; dt gets evaluated if it's falsy; None in this case.
+
+=================
+
+ Q:
+	Why is it unwise  to use mutable types (like list, dictionary etc) as a default function parameter, and used None instead?
+	
+A:
+	Because the function definition runs once, and then that mutable parameter is modified every time we call the function; even for different variables.
+=================
+
+ Q:
+	It is generally inadvisable to use mutable types (like list, dictionary etc) as a default function parameter, and use None instead, but that approach has some applications; show one.
+	
+A:
+	Calculating factorial of a number.
+		def factorial(n, cache={}):
+			# cache is a mutable dictionary that gets created if not given by the user.
+			# The dictionary cache is created once; and then gets updated as you call the function.
+			
+			if n < 1:
+				return 1
+			elif n in cache:
+				return cache[n]
+			else:
+				print('calculating {0}!'.format(n))
+				result = n * factorial(n-1)
+				cache[n] = result
+				return result
+				
+Check video titled [18. Parameter Defaults - Beware Again!!.mp4] for further info.
+=================
