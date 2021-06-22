@@ -518,3 +518,259 @@ A:
 				
 Check video titled [18. Parameter Defaults - Beware Again!!.mp4] for further info.
 =================
+
+Q:
+	Why functions in Python are considered First-Class objects.
+A:
+	Because they meet the conditions that are required to be so.
+	
+=================
+
+Q:
+	What are the conditions for an object to be a First-Class object?
+A:
+	It can be passed to a function as an argument.
+	It can be returned from a function.
+	It can be assigned to a variable.
+	It can be stored in a data structure (such as list, tuple, dictionary, etc.)
+	
+=================
+
+Q:
+	What is a Higher-Order functions?
+A:
+	A function that takes a function as an argument, or a function that returns a function.
+
+=================
+You can almose do anything with lambda that you can do with regular functions.
+Consider:
+
+fn = lamda x, *args, y, **kwargs: (x, args, y, kwargs)
+
+=================
+
+Q:
+	Name typical applications of the lambda function.
+A:
+	Lambda is typically used where conciseness is desirable; for example in the case of a function that could use another function as an argument.
+	
+	sorted(iterable, key=None, reverse=False) function is one example.
+	
+	Example:
+		l = ["c", "N", "a", "D", "B", "R", "A"]
+		
+		# Using the sorted function; we get:
+		
+		l1 = sorted(l)
+		
+		print(l1)
+		
+		['A', 'B', 'D', 'N', 'R', 'a', 'c']
+		# What if we want to sort l alphabitcally (not ordinally), so that we get:
+		# ['a', 'A', 'B', 'c', 'D', 'N', 'R']
+		
+		# We use a lambda function in the key argument of the sorted function.
+		sorted(l, key=lambda x: x.upper())
+		
+		# note we could have used key=lambda x: x.lower()
+		
+	Example:
+		d = {"def": 260, "abc": 300, "def": 26, "ghi": 33, "jkl": 3334}
+		
+		# If we want to get a list of keys in d, sorted by their values:
+		l = sorted(d, key= lambda k: d[k])
+		
+		print(l)
+		['def', 'ghi', 'abc', 'jkl']
+		
+	Example:
+		l = ['Cleese', 'Idle', 'Palin', 'Chapman', 'Gilliam', 'Jones']
+		
+		# Sort by last character.
+		
+		sorted(l, key=lambda s: s[-1])
+		
+=================
+
+Q:
+	How to get a list of methods and attributes of a function func?
+A:
+	dir(func)
+	
+=================
+
+Higher Order Function:
+	Definition:
+		A function that takes another function as a parameter or returns another function.
+	
+	Example of HOF:
+		sorted
+			it can take a function for the key keyword argument.
+		map, filter too.
+		
+=================
+
+map (func, *iterables)
+
+The map function takes a function (func) and applies it to the elements of iterables.
+It returns a map object which is an iterator; not a lists!
+
+=================
+
+map function examples:
+
+Example 1:
+	l = [2, 3, 4]
+	
+	def sq(x):
+		return x**2
+	
+	y = map(sq, l)
+
+Example 2:
+	
+	l1 = [1, 2, 3, 4, 5]
+	l2 = [10, 20, 30, 40, 50]
+	
+	def mult(x, y):
+		return x * y
+		
+	l3 = map(mult, l1, l2)
+	
+=================		
+
+Q:
+	What does a map function return?
+
+A:
+	A map object.
+
+=================
+
+Q:
+	True or False, a map object is an iterable?
+
+A:
+	False, a map object is an iterator.
+	
+=================
+
+Q:
+	Is the following code valid in Python?
+		l1 = [1, 2, 3]
+		l2 = [10, 20, 30, 40, 50]
+
+		def mult(x, y):
+			return x * y
+
+		l3 = map(mult, l1, l2)
+		
+A:
+	Yes it's totally valid.
+	
+=================
+
+Q:
+	List two differences between the map function and the filter function.
+	
+A:
+	1)	The filter function takes only a single iterable; unlike the map function which can take an arbitrary number of iterables.
+	2) The filter function accept None as a function; in that case it filters out elements of the iterable based on their truthiness. Truthy elements are returned.
+	
+=================
+
+Q:
+	Without executing the following code; what is the value of y?
+	
+	x = range(4)
+	y = list(filter(None, x))
+
+A:
+	[1, 2, 3] # 0 is dropped because it is Falsy!
+	
+=================
+
+Q:
+	True or False, zip function is a Higher Order Function?
+A:
+	False, yet it's very often used with HOF, hence the confusion.
+	
+=================
+
+Example:
+	s1 = "python"
+	l1 = range(4)
+	
+	y = list(zip(s1, l1))
+	print(y)
+	[('p', 0), ('y', 1), ('t', 2), ('h', 3)]
+
+	# Notice len(s1) != len(l1) 
+	
+Example:
+	s1 = "python"
+	l1 = range(5)
+	d1 = {"a": 1, "b":3}
+	
+	y = list(zip(s1, l1))
+	print(y)
+	[('p', 0, 'a'), ('y', 1, 'b')]
+	
+	# We can take an arbitrary number of iterables; not only two!
+	# The zip object length takes zip up to the least length of the iterables; in this case it is  d1.
+	
+Example:
+	l1 = range(100)
+	s1 = "python"
+	print(len(l1), len(s1))
+	print(list(zip(l1, s1)))
+
+	100 6
+	[(0, 'p'), (1, 'y'), (2, 't'), (3, 'h'), (4, 'o'), (5, 'n')]
+
+=================
+In python list comprehension is a better alternative to the map and the filter functions.
+
+List Comprehension General Form:
+	[<expression> for <var_name> in <iterable>]
+
+Example:
+	# List Comprehension in lieu of the map function:
+	l1 = [1, 2, 3]
+	l2 = [10, 20, 30]
+	y = [x + y for x,y in zip(l1, l2)]
+	print(y)
+
+	[11, 22, 33]
+	
+Example:
+	# List Comprehension in lieu of the filter function:
+	l1 = range(6)
+
+	print(list(filter(lambda n: n % 2 == 0, l1)))
+	[0, 2, 4]
+	# Only the truthy results were returned; in this case [0, 2, 4]
+	
+	# List Comprehension could be used instead of the filter function; by adding an if statement.
+	print([i for i in l1 if i % 2 == 0])
+
+List Comprehension to Filter Some Elements out:
+	[<expression_01> for <var_name> in <iterable> if <expression_02>]
+
+Compare readibility & conciseness between List Comprehension & the combination of filter and map Functions:
+
+	filter + map:
+		l1 = range(10)
+		list(filter(lambda y: y < 25, map(lambda x: x**2, l1)))
+		
+	List Comprehension:
+		l1 = range(10)
+	[i**2 for i in l1 if i**2 < 25]
+	
+	# Clearly List Comprehension is more readible!
+=================
+
+
+
+
+
