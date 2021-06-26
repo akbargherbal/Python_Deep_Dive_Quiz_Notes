@@ -768,9 +768,84 @@ Compare readibility & conciseness between List Comprehension & the combination o
 	[i**2 for i in l1 if i**2 < 25]
 	
 	# Clearly List Comprehension is more readible!
+	
 =================
 
+Q:
+	What is the value of y; if:
+		s1 = {"1", "", None, 3}
+		y = all(s1)
+A:
+	False
+	
+=================
 
+Q:
+	What is the value of y; if:
+		s1 = {"1", "", None, 3}
+		y = any(s1)
+A:
+	True
+=================
 
+Q:
+	Give a list l1 = list(range(1,6)), use the reduce function to find the multiplication product of its elements.
+	
+A:
+	from functools import reduce
+	reduce(lambda a,b : a * b, l1)
+	
+=================
 
+Q:
+	Use the reduce function from the functools module to define a function that calculate the factorial of a given number.
+	
+A:
+	from functools import reduce
+	def get_fact(n):
+		return reduce(lambda a, b: a * b, range(1, n+1))
+	
+	print(get_fact(6))
+	720
 
+=================	
+
+Q:
+	Use recursion to define a function that calculate the factorial of a given number.
+	
+A:
+	def get_fact(n):
+		return 1 if n < 2 else n * get_fact(n-1) 
+	
+	print(get_fact(6))
+	720
+
+=================
+
+Q:
+	Name a function that's imported from the functools module and it's used to set the default values of chosen arguments.
+	
+A:
+	partial function.
+
+=================
+
+Q:
+	What could go wrong with the following code that uses the functools partial function:
+		
+		from functools import partial
+		
+		def pow(base, exponent):
+			return base**exponent
+		
+		cube = partial(pow, exponent=3)
+		
+A:
+	For the cube variable, although the exponent default value has been set to 3 in the partial function, it is still changable. The following could happen:
+	
+	cube(5, exponent=2)
+	
+	So the partial function set the default value of some arguments, but it doesn't prevent us from changing the value of those arguments.
+	
+=================
+	
