@@ -848,4 +848,145 @@ A:
 	So the partial function set the default value of some arguments, but it doesn't prevent us from changing the value of those arguments.
 	
 =================
+
+Q:
+	In programming what is the difference between compilation time and runtime?
+
+A:
+	Compile-time is the time at which the source code is converted into an executable code while the run time is the time at which the executable code is started running.
+
+=================
+
+Q:
+	Explain whtat happens at compilation time and runtime; given the following code:
+	
+	def my_func(a, b):
+		c = a * b
+		return c
+	
+A:
+	At compilation time:
+		a, b and c are determined to be local variables
+	At runtime:
+		When the function my_func gets called, it starts executing.
+		
+=================
+
+Q:
+	Explain whtat happens at compilation time; given the following code:
+	
+	a = 10
+	def my_func(b):
+		print(True)
+		print(a)
+		print(b)
+		
+	my_func(300)
+	
+A:
+	At compilation time the following happens:
+		1)	The function my_func gets created.
+		2)	b is being determined to be a local variable.
+		
+=================
+
+Q:
+	Given the followig code; what is the LAST print out on the screen?
+
+	a = 0
+	def my_func():
+		a = 100
+		print(a)
+	
+	my_func()
+	
+	print(a)
+
+A:
+	0
+
+=================
+[global keyword]
+Q:
+	Given the followig code; what is the LAST print out on the screen?
+
+	a = 0
+	def my_func():
+		global a
+		a = 100
+		print(a)
+	
+	my_func()
+	
+	print(a)
+
+A:
+	100
+	
+=================
+Q:	What is the value of a? [TRICK QUESTION]
+
+	a = 10
+	print(a)
+	def my_func(n):
+		global a
+		a = 20
+		c = a ** n
+		return c
+		
+	print(a)
+	
+A:
+	a = 10; Because we haven't called the function my_func yet.
+	Once we call the function my_func() ... a becomes 20
+	
+=================
+
+Q:
+	Why is the following code will generate an error? [IMPORTANT]
+	
+		a = 10
+		def my_func():
+		  print("global a: ", a)
+		  a = "hello world"
+		  print(a)
+
+		my_func()
+
+A:
+	Becasue at compile time a was determined by Python to be in the local scope; however it was referenced before assignment.
+	The following error will be shown by Python:
+		UnboundLocalError: local variable 'a' referenced before assignment
+
+=================
+
+Q: 
+	List one application of decorators in Python and demonstrate its use in code.
+
+A:
+	One application is a counter function; that counts how many times another function has run.
+	
+	--------------------
+	def counter(fn):
+		print("Outer function is now running ...")
+		count = 0
+		def inner(*args, **kwargs):
+			nonlocal count
+			count += 1
+			print("Inner function is now running ...")
+			print(f"The name of the inner function is {fn.__name__}.")
+			print(f"{fn.__name__} has run {count} times.")
+			print(f"The arguments and keywords arguments are: {args, kwargs}.")
+			return fn(*args, **kwargs)
+		return inner
+		
+	@counter
+	def add_func(a, b):
+		return a + b
+		
+	add_func(3,56)
+	--------------------
+	
+=================
+
 	
