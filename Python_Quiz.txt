@@ -988,5 +988,90 @@ A:
 	--------------------
 	
 =================
+Q:
+	What is a decorator factory?
 
+A:
+	A decorator factory is a function that returns a decorator. 
+
+
+=================
+Q:
+	Why would we use a decorator factory?
+
+A:
+	To paramaterize a decorator.
+
+=================
+
+
+Decorator Application (Dispatching):
+	One excellent video that provides examples of the usefullness of decorators can be found in the following video of the Deep Dive 1: Python 3:
+		7. Scopes, Closures and Decorators\19. Decorator Application (Dispatching) - Part 1.mp4
 	
+	Remember when you tried to create a function that lemmatize/stem Arabic words...
+	See the video applied to html formatting ..... the same approach.
+	A function that has a dictionary of functions that work in different scenarios (if elif else).
+
+	Below a function that doesn't use decorators; but provide the justification for that.
+	It's very simple function.
+	--------------------	
+	def htmlize(arg):
+		'''This function takes an object; detect its type;
+		Then apply a function to it [defined already].
+		The registery dictionary contains the type and the function that's applicable to it.
+		'''
+		registery = {
+			object: html_escape,
+			int: html_int,
+			float: html_real,
+			Decimal: html_real,
+			str: html_str,
+			list: html_list,
+			tuple: html_list,
+			set: html_set,
+			dict: html_dict
+		}
+		
+		fn = registery.get(type(arg), register[object])
+		return fn(arg)
+	--------------------
+=================
+
+--------------------
+	from functools import singledispatch
+	from numbers import Integral
+	from collections.abc import Sequence
+
+	@singledispatch
+	def do_something(a):
+		print("Default function")
+		return f"{a} is of type {type(a)}"
+		
+	do_something.registry
+
+	@do_something.register(Sequence)
+	def do_something_seq(s):
+		print("This is a sequence type.")
+		print(f"The object is {s} is of type {type(s)}")
+		print(f"Multiplying object by 10 gives:\n{10*s}")
+		
+	@do_something.register(Integral)
+	def do_something_integral(i):
+		print("This is an integal type.")
+		print(f"The object is {i} is of type {type(i)}")
+		print(f"Multiplying object by 10 gives:\n{10*i}")
+		
+	do_something.dispatch(dict)
+	do_something.dispatch(str)
+
+	t1 = (1,3,5,6,7,8)
+	d1 = {1: 3, 2: 6, 456: 5}
+	s1 =  "Hello Python"
+
+	do_something(t1)
+	do_something(d1)
+	do_something(s1)
+--------------------
+
+=================
