@@ -1075,3 +1075,52 @@ Decorator Application (Dispatching):
 --------------------
 
 =================
+Q:
+
+	Using named tuple data structure create 3 points that have their the x, y and z coordinates as follows:
+		pt1 = (13, 34, 0)
+		pt2 = (3, 35, 6)
+		pt3 = (32, 11, 5)
+
+A:
+	--------------------
+		from collections import namedtuple
+		Point3D = namedtuple("Point3D", list('xyz'))
+		pt1 = Point3D(13, 34, 0)
+		pt2 = Point3D(3, 35, 6)
+		pt3 = Point3D(32, 11, 5)
+	--------------------
+
+=================
+
+Q:
+	List some advantages of using named tuple over creating your own class:
+
+A:
+	In named tuple represntation of the data is creating for us automatically.
+		Point3D(x=32, y=11, z=5)
+	In named tuple we don't have to creat equality or lt or gt methods; that's not the case if we're using a class.
+		Point3D(x=3, y=35, z=6) < Point3D(x=32, y=11, z=5)
+	In named tuple (just like ordinary tuple) we don't have to create __it__ method to iterate over the elements within it.
+=================
+Q:
+	Are named tuples mutable or immutable?
+
+A:
+	immutable
+
+=================
+Q:
+	What is the best approach in modifying a named tuple; like the following one:
+		Point3D = namedtuple("Point3D", "x y z")
+		pt1 = Point3D(10, 20, 30)
+		Change y to 25.
+		
+A:
+	--------------------
+		from collections import namedtuple
+		Point3D = namedtuple("Point3D", "x y z")
+		pt1 = Point3D(10, 20, 30)
+		pt1 = pt1._replace(y=25)
+	--------------------
+	
