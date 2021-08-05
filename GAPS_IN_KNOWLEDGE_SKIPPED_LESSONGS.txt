@@ -1,0 +1,5 @@
+Skipped Lessons:
+	[FreeTutorials.Eu] Udemy - Python 3 Deep Dive (Part 1)
+		9. Modules, Packages and Namespaces
+		10. Extras
+	
